@@ -18,6 +18,7 @@ const schemeRoutes = require('./routes/schemeRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const debtFundRoutes = require('./routes/debtFundRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use('/api', schemeRoutes); // handles /schemes and /knowledge
 app.use('/api/community', communityRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/debt-fund', debtFundRoutes);
+app.use('/api/orders', orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
