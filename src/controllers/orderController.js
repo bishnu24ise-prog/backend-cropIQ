@@ -36,8 +36,8 @@ exports.createOrder = async (req, res) => {
 // @access  Private
 exports.getFarmerOrders = async (req, res) => {
   try {
-    // req.userId comes from the protect middleware
-    const orders = await Order.find({ farmerId: req.userId }).sort({ createdAt: -1 });
+    // req.user comes from the protect middleware
+    const orders = await Order.find({ farmerId: req.user._id }).sort({ createdAt: -1 });
     res.json({ orders });
   } catch (error) {
     res.status(500).json({ error: error.message });

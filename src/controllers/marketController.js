@@ -19,7 +19,7 @@ exports.sellCrop = async (req, res) => {
   try {
     const { cropName, quantity, pricePerUnit } = req.body;
     const newItem = new MarketItem({
-      userId: req.userId,
+      userId: req.user._id,
       cropName,
       quantity,
       pricePerUnit,
