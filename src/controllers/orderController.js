@@ -5,7 +5,7 @@ const Order = require('../models/Order');
 // @access  Public (or protected if buyers must login, assuming public for hackathon to match market page state)
 exports.createOrder = async (req, res) => {
   try {
-    const { buyerName, deliveryAddress, contactNumber, product, totalPrice, farmerId } = req.body;
+    const { buyerName, deliveryAddress, pincode, city, contactNumber, product, totalPrice, farmerId } = req.body;
     
     if (!deliveryAddress || !contactNumber || !product || !totalPrice || !farmerId) {
       return res.status(400).json({ error: 'Please provide all required fields' });
@@ -14,6 +14,8 @@ exports.createOrder = async (req, res) => {
     const order = new Order({
       buyerName: buyerName || 'Guest Buyer',
       deliveryAddress,
+      pincode,
+      city,
       contactNumber,
       product,
       totalPrice,
