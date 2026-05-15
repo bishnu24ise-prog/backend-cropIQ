@@ -5,7 +5,7 @@ const marketItemSchema = new mongoose.Schema({
   cropName: String,
   mandi: String,
   unit: String,
-  quantity: Number,
+  quantity: { type: Number, required: true, min: 0 },
   pricePerUnit: Number,
   totalPrice: Number,
   status: { type: String, default: 'listed' },

@@ -15,15 +15,24 @@ exports.createOrder = async (req, res) => {
 
     // Deduct inventory if marketItemId is provided
     if (marketItemId && quantity) {
+      const parsedQuantity = Number(quantity);
+      
       const marketItem = await MarketItem.findById(marketItemId);
       if (!marketItem) {
         return res.status(404).json({ error: 'Market listing not found' });
       }
-      if (marketItem.quantity < quantity) {
-        return res.status(400).json({ error: `Insufficient stock. Only ${marketItem.quantity} available.` });
+      
+      const currentStock = Number(marketItem.quantity) || 0;
+      if (currentStock < parsedQuantity) {
+        return res.status(400).json({ error: `Insufficient stock. Only ${currentStock} available.` });
       }
-      marketItem.quantity -= quantity;
-      await marketItem.save();
+
+      // Use atomic $inc to prevent race conditions and strictly enforce number deduction
+      await MarketItem.findByIdAndUpdate(
+        marketItemId,
+        { $inc: { quantity: -parsedQuantity } },
+        { new: true, runValidators: true }
+      );
     }
 
     const order = new Order({
