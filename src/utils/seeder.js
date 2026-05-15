@@ -19,7 +19,11 @@ const performSeeding = async () => {
 
       // Remaining Highlights
       { title: 'LIVE: Modern Agriculture 2026', description: 'Recording of our live expert session.', type: 'video', category: 'General', contentUrl: 'https://www.youtube.com/embed/Fg8295f6mSQ' },
-      { title: 'Sustainable Crop Rotation Plan', description: 'A masterclass on planning your seasons.', type: 'video', category: 'Sustainability', contentUrl: 'https://www.youtube.com/embed/NcDKtUk8Xys' }
+      { title: 'Sustainable Crop Rotation Plan', description: 'A masterclass on planning your seasons.', type: 'video', category: 'Sustainability', contentUrl: 'https://www.youtube.com/embed/NcDKtUk8Xys' },
+      
+      // New additions
+      { title: 'Daily Tractor Maintenance Guide', description: 'Keep your machinery running flawlessly all year round.', type: 'video', category: 'Machinery', contentUrl: 'https://www.youtube.com/embed/EnzVh9QRQA0' },
+      { title: 'Understanding Government Subsidies', description: 'Learn how to apply for and maximize government grants.', type: 'video', category: 'Finance', contentUrl: 'https://www.youtube.com/embed/aAMotAMyS9s' }
     ]);
     
     console.log('✅ Academy Library Updated (IoT & Storage Removed)!');
