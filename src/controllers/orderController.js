@@ -7,9 +7,8 @@ exports.createOrder = async (req, res) => {
   try {
     console.log("📥 Received order request:", req.body);
     const { buyerName, deliveryAddress, pincode, city, contactNumber, product, totalPrice, farmerId } = req.body;
-    
-    if (!deliveryAddress || !contactNumber || !product || !totalPrice || !farmerId) {
-      console.log("❌ Validation failed. Missing fields:", { deliveryAddress: !!deliveryAddress, contactNumber: !!contactNumber, product: !!product, totalPrice: !!totalPrice, farmerId: !!farmerId });
+
+    if (!buyerName || !deliveryAddress || !contactNumber || !product || !totalPrice) {
       return res.status(400).json({ error: 'Please provide all required fields' });
     }
 
