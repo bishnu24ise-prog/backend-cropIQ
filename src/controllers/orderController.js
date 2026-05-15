@@ -42,3 +42,15 @@ exports.getFarmerOrders = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// @desc    Get all orders (Admin/Demo route)
+// @route   GET /api/orders
+// @access  Public
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 });
+    res.json({ orders });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
