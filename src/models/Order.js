@@ -8,6 +8,8 @@ const orderSchema = new mongoose.Schema({
   contactNumber: { type: String, required: true },
   product: { type: String, required: true },
   totalPrice: { type: Number, required: true },
+  quantity: { type: Number, required: true, default: 1 },
+  marketItemId: { type: mongoose.Schema.Types.ObjectId, ref: 'MarketItem', required: false },
   farmerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
   status: { type: String, default: 'pending' },
   createdAt: { type: Date, default: Date.now }

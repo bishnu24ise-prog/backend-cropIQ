@@ -17,10 +17,12 @@ exports.getMarketItems = async (req, res) => {
 // @access  Private
 exports.sellCrop = async (req, res) => {
   try {
-    const { cropName, quantity, pricePerUnit } = req.body;
+    const { cropName, mandi, unit, quantity, pricePerUnit } = req.body;
     const newItem = new MarketItem({
       userId: req.user._id,
       cropName,
+      mandi,
+      unit,
       quantity,
       pricePerUnit,
       totalPrice: quantity * pricePerUnit,

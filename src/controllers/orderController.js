@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const MarketItem = require('../models/MarketItem');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -6,10 +7,23 @@ const Order = require('../models/Order');
 exports.createOrder = async (req, res) => {
   try {
     console.log("📥 Received order request:", req.body);
-    const { buyerName, deliveryAddress, pincode, city, contactNumber, product, totalPrice, farmerId } = req.body;
+    const { buyerName, deliveryAddress, pincode, city, contactNumber, product, totalPrice, quantity, marketItemId, farmerId } = req.body;
 
     if (!buyerName || !deliveryAddress || !contactNumber || !product || !totalPrice) {
       return res.status(400).json({ error: 'Please provide all required fields' });
+    }
+
+    // Deduct inventory if marketItemId is provided
+    if (marketItemId && quantity) {
+      const marketItem = await MarketItem.findById(marketItemId);
+      if (!marketItem) {
+        return res.status(404).json({ error: 'Market listing not found' });
+      }
+      if (marketItem.quantity < quantity) {
+        return res.status(400).json({ error: `Insufficient stock. Only ${marketItem.quantity} available.` });
+      }
+      marketItem.quantity -= quantity;
+      await marketItem.save();
     }
 
     const order = new Order({
@@ -20,6 +34,8 @@ exports.createOrder = async (req, res) => {
       contactNumber,
       product,
       totalPrice,
+      quantity: quantity || 1,
+      marketItemId,
       farmerId
     });
 
