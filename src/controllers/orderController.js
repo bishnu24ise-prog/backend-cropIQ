@@ -54,3 +54,25 @@ exports.getAllOrders = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// @desc    Update order status
+// @route   PATCH /api/orders/:id
+// @access  Public
+exports.updateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+    
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
