@@ -40,6 +40,11 @@ app.use(express.json());
 // Serve Static Files
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// Health Check Route
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'ok', service: 'cropiq-backend' });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
